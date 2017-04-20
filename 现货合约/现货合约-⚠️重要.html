@@ -2,7 +2,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>#现货合约-转账</title>
+<title>index</title>
 <style>
 @font-face {
   font-family: octicons-anchor;
@@ -838,60 +838,35 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 </style>
 
 <style> @media print{ .hljs{overflow: visible; word-wrap: break-word !important;} }</style></head><body><div class="markdown-body">
-<h1 id="toc_0">现货合约-转账</h1>
+<h1 id="toc_0">现货合约-⚠️重要</h1>
 
-<h2 id="toc_1">对应界面</h2>
+<h2 id="toc_1">后台数据</h2>
 
 <blockquote>
-<h5 id="toc_2">无记录显示样式👇</h5>
-
-<p><img src="https://github.com/BitStar-UX/picture/blob/master/%E7%8E%B0%E8%B4%A7%E5%90%88%E7%BA%A6/%E4%B8%BB%E8%A6%81%E5%9B%BE%E7%89%87/1%E3%80%81%E8%BD%AC%E8%B4%A6-%E6%97%A0%E8%AE%B0%E5%BD%95@1x.png?raw=true" alt=""/></p>
-
-<h5 id="toc_3">有记录显示样式👇</h5>
-
-<p><img src="https://github.com/BitStar-UX/picture/blob/master/%E7%8E%B0%E8%B4%A7%E5%90%88%E7%BA%A6/%E4%B8%BB%E8%A6%81%E5%9B%BE%E7%89%87/2%E3%80%81%E8%BD%AC%E8%B4%A6-%E6%9C%89%E8%AE%B0%E5%BD%95@1x.png?raw=true" alt=""/></p>
-
-<p>⚠️：‘转帐’中的‘转入与转出’是指从‘个人账户’中把BTC／ETH转入自己的‘现货合约’中</p>
+<ul>
+<li>现货合约下的所有时间字段全部传：<strong>年、月、日、时、分、秒</strong></li>
+<li>翻页：每页最多为<strong>20条</strong>数据信息</li>
+<li>‘现货合约’下和‘<strong>计价货币</strong>’有关系的数字（人民币与美元）建议统一做个标注</li>
+<li>人民币、美元、虚拟币传给前端准确值前端进行小数点精确 or 后台直接处理‘人民币小数点后精确1位、美元精确两位、虚拟币小数点精确四位。’</li>
+</ul>
 </blockquote>
 
-<h2 id="toc_4">后台数据</h2>
-
-<ol>
-<li><strong>提供比特币、莱特币的‘转入与转出’记录用户账户信息时时变化</strong></li>
-<li><p><strong>提供现货合约用户操作的对应时间、方向、数量的数据字段</strong></p>
+<h2 id="toc_2">前端</h2>
 
 <blockquote>
-<p>每次操作记录：<br/>
-时间：年月日时分秒，前端调取界面所需数据。<br/>
-方向：转入指从‘账户’转入到‘合约账户’；转出指从‘合约账户’转出到‘账户’。</p>
-</blockquote></li>
-<li><p><strong>提供账户‘转入、转出’的记录数、页码数、对应界面各个字段（每页最多20条记录）</strong></p></li>
-</ol>
+<ul>
+<li>界面显示具体<strong>时间</strong>字段选取以<strong>“标注文件”</strong>为参考调用数据，记录排序按照<strong>最新纪录在前</strong>进行排序。</li>
+<li>在结算流水、历史订单、爆仓披露等页面：无记录的情况显示‘暂无记录’的图片；如果信息记录<strong>不足20条</strong>的话要隐藏<strong>‘页码数’、‘下一页’</strong>等信息。记录大于20条后显示。</li>
+<li>在‘BTC现货合约’界面选择了计价货币，<strong>‘现货合约’</strong>大标签下所有页面也默认按照所选计价货币把对应的货币进行换算显示。</li>
+<li><strong>结算流水、历史订单</strong>默认显示纪录的时间段为最后一周的时间段(eg.如果现在是2017-11-27，那默认显示从<strong>‘2017-11-21’ 到 ‘2017-11-27’</strong>的所有记录<strong>‘包含21号和27号的数据信息’</strong>)。如果用户查看更早纪录，再根据用户选择时间段从后台调取。</li>
+<li>人 民 币：小数点后精确一位  eg：23.4</li>
+<li>美元单位：小数点后精确两位  eg：23.38</li>
+<li>比 特 币：小数点后精确四位 eg:21.9280</li>
+<li>日期框样式：具体天数有选中和鼠标悬停两种状态，选中后马上关闭日期选择块并提交数据，样式请点击<a href="https://github.com/BitStar-UX/picture/blob/master/%E7%8E%B0%E8%B4%A7%E5%90%88%E7%BA%A6/%E6%AC%A1%E8%A6%81%E5%9B%BE%E7%89%87/3.png?raw=true">这里</a></li>
+</ul>
+</blockquote>
 
-<h2 id="toc_5">前端</h2>
-
-<ol>
-<li><p><strong>‘转入转出’按钮样式：</strong></p>
-
-<blockquote>
-<p><strong>a.正常状态：</strong><br/>
-样式：<br/>
-大小：看标注<br/>
-background: #059FF5;<br/>
-box-shadow: 0 2px 16px 0 rgba(79,137,196,0.48);<br/>
-<strong>b.鼠标悬停状态：</strong><br/>
-样式：<br/>
-大小：看标注<br/>
-background: #1098E4;<br/>
-box-shadow: 0 2px 8px 0 rgba(79,137,196,0.48);<br/>
-<strong>b.点击后样式：</strong><br/>
-样式：<br/>
-大小：看标注<br/>
-background: #1098E4;<br/>
-box-shadow: 0 2px 8px 0 rgba(79,137,196,0.48);</p>
-</blockquote></li>
-<li><p><strong>交易的买卖记录在单页面最多显示20条，少于20条不现实翻页的功能，多于20条显示对应页码数</strong></p></li>
-</ol>
+<br><br><br><br>
 
 </div></body>
 
